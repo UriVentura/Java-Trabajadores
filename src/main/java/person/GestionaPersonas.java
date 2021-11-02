@@ -147,18 +147,17 @@ public class GestionaPersonas {
     //En esta funcion añadimos un trabajador YA CREADO a un grupo de trabajo.
     static void addTrabajadorGrupoTrabajo() throws Limits {
         if (grupoTrabajo.size() >= 2) {
-            throw new Limits("El grupo de trabajo no puede ser de más de 2 personas");
-        }
-        else {
-            try {
-            String dni = entryStr("\nIntroduce el DNI del trabajador a añadir"+
-                " al grupo de trabajo: ");
-            grupoTrabajo.add(trabajadores.get(dni));
-            } catch (NullPointerException e) {
-            System.out.println("DNI incorrecto.");
-            } catch (Exception e) {
-            System.out.println("Error");
-            e.printStackTrace();
+            throw new Limits("Grupo de trabajo no puede " +
+                    "contener más de 2 trabajadores.");
+        } else {
+            String dni = entryStr("\nIntroduzca DNI de trabajador a "+
+                    "añadir a Grupo de Trabajo: ");
+            if ((trabajadores.get(dni) != null) && (!grupoTrabajo.contains(trabajadores.get(dni)))) {
+                grupoTrabajo.add(trabajadores.get(dni));
+                System.out.println("Añadido al grupo de trabajo: "+
+                        trabajadores.get(dni).toString());
+            } else {
+                System.out.println("DNI no válido o ya se encuentra en el grupo.");
             }
         }
     }
